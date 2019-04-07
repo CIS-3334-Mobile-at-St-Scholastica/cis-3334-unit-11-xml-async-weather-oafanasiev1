@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     EditText etWind;
     EditText etVis;
 
+    AsyncDownloadXML AsyncWeatherDownloader = new AsyncDownloadXML();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,14 +33,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void btnClick (View v) throws XmlPullParserException, URISyntaxException, IOException {
-
-        URL weatherURL =  new URL("http://w1.weather.gov/xml/current_obs/KDLH.xml");
-        String  weatherStrURL =  "http://w1.weather.gov/xml/current_obs/KDLH.xml";
-
-        // AsyncTask subclass
-        //new AsyncDownloadXML().execute(weatherStrURL);
-        new AsyncDownloadXML().execute(this);
-
+        // Download the weather asynchronously
+        AsyncWeatherDownloader.execute(this);
     }
 
     public void setTemp(String newTemp) {
@@ -47,6 +43,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void setWind(String newWind) {
         etWind.setText(newWind);
+    }
+
+    public String getLocation() {
+        return etLoc.getText().toString();
     }
 
 
