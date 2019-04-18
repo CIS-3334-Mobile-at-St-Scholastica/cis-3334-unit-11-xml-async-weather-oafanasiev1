@@ -40,6 +40,7 @@ public class AsyncDownloadXML extends AsyncTask<MainActivity, String, String> {
             xpp.setInput(stream, null);
             int eventType = xpp.getEventType();
 
+
             String tempStr = "Updating...";			// Temperature Update String
             String windStr = "Updating...";			// Wind Update String
             publishProgress(tempStr,windStr);
@@ -85,13 +86,22 @@ public class AsyncDownloadXML extends AsyncTask<MainActivity, String, String> {
         }
     }
 
+    /**
+     * gives an update about the data load, so the user can see it
+     * @param update
+     */
     @Override
     protected void onProgressUpdate(String... update) {
         Log.v("== CIS 3334 ==","in onProgressUpdate");
         mainActivityLink.setTemp(update[0]);
         mainActivityLink.setWind(update[1]);
+        mainActivityLink.setVis(update[2]);
     }
 
+    /**
+     * When the data is loaded, send the information to the main activity
+     * @param result
+     */
     @Override
     protected void onPostExecute(String result) {
         Log.v("== CIS 3334 ==", "in onPostExecute");

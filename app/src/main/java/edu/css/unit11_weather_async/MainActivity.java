@@ -20,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
 
     AsyncDownloadXML AsyncWeatherDownloader = new AsyncDownloadXML();
 
+    /**
+     * This method is triggered when activity is started. Assigns all the variables
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,24 +36,58 @@ public class MainActivity extends AppCompatActivity {
         etVis =  (EditText) findViewById(R.id.textVis);
     }
 
+    /**
+     * This method is triggered when the user clicks on the button to get information. It starts the AsyncWeatherDownloader
+     * @param v
+     * @throws XmlPullParserException
+     * @throws URISyntaxException
+     * @throws IOException
+     */
     public void btnClick (View v) throws XmlPullParserException, URISyntaxException, IOException {
         // Download the weather asynchronously
         AsyncWeatherDownloader.execute(this);
     }
 
+    /**
+     * Sets the temp that is passed to the etWind to the main screen.
+     * @param newTemp
+     */
     public void setTemp(String newTemp) {
+
         etTemp.setText(newTemp);
     }
 
-    public void setWind(String newWind) {
+    /**
+     * Sets the wind and passes it to the UI.
+     * @param newWind
+     */
+    public void setWind(String newWind)
+    {
         etWind.setText(newWind);
     }
 
+    /**
+     * Sets visibility that is passed to the UI
+     * @param newVis
+     */
+    public void setVis(String newVis){
+        etVis.setText(newVis);
+    }
+
+    /**
+     * Returns the location that the user has entered
+     * @return
+     */
     public String getLocation() {
+
         return etLoc.getText().toString();
     }
 
 
+    /**
+     * Sets the status to the toast in the UI
+     * @param newStatus
+     */
     public void setStatus(String newStatus) {
         Toast toast=Toast.makeText(getApplicationContext(), newStatus,Toast.LENGTH_LONG );
         toast.show();
